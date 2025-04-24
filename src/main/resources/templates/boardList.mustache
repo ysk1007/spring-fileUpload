@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>게시판 리스트</title>
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8fafc;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .board-container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+    }
+    .board-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+    .btn-add {
+      margin-bottom: 1rem;
+      background-color: #6366f1;
+      border-color: #6366f1;
+      color: white;
+    }
+    .btn-add:hover {
+      background-color: #4f46e5;
+      border-color: #4f46e5;
+    }
+    table {
+      font-size: 1rem;
+    }
+    .table td a {
+      text-decoration: none;
+      color: #6366f1;
+    }
+    .table td a:hover {
+      color: #4f46e5;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+	<div class="container-fluid p-5 bg-primary text-white text-center">
+	  <h1>Nice memories💽</h1>
+	  <p>좋은 기억들을 담는 공간</p> 
+	</div>
+
+  <div class="container py-5">
+    <div class="board-container">
+      <div class="d-flex justify-content-between align-items-center">
+        <h1 class="board-title">📋 게시판 목록</h1>
+        <a href="/addBoard" class="btn btn-add">+ 보드 추가</a>
+      </div>
+
+      <table class="table table-hover text-center align-middle">
+        <thead class="table-light">
+          <tr>
+            <th style="width: 10%">#</th>
+            <th>제목</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#list}}
+          <tr>
+            <td>{{bno}}</td>
+            <td><a href="/boardOne?bno={{bno}}">{{title}}</a></td>
+          </tr>
+          {{/list}}
+        </tbody>
+      </table>
+
+      <div class="d-flex justify-content-center align-items-center mt-4 gap-3">
+        {{^isFirst}}
+        <a href="/boardList?currentPage={{prePage}}" class="btn btn-outline-secondary btn-sm">← 이전</a>
+        {{/isFirst}}
+
+        <span class="fw-bold">{{currentPage}}</span>
+
+        {{#hasNext}}
+        <a href="/boardList?currentPage={{nextPage}}" class="btn btn-outline-secondary btn-sm">다음 →</a>
+        {{/hasNext}}
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
