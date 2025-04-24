@@ -1,5 +1,6 @@
 package com.example.fileupload.controller;
 
+import java.io.File;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,6 +85,18 @@ public class BoardController {
 			return "redirect:/removeBoard?bno="+bno;
 		}
 		
+		
+		// 파일부터 삭제
+		List<Boardfile> files = boardfileRepository.findByBno(bno);
+		for(Boardfile f : files) {
+
+			Boardfile boardfile = boardfileRepository.findById(f.getFno()).orElse(null);
+			File file = new File("c:/project/upload/" + boardfile.getFname() + "." + boardfile.getFext());
+			
+			if(file.exists()) {
+				file.delete();
+			}
+		}
 		
 		boardfileRepository.deleteByBno(bno);
 		boardRepository.delete(board);
